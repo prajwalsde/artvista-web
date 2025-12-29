@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | ArtVista</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav id="navbar" class="scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Art<span>Vista</span></a>
+
+            <div class="nav-icons" style="display: flex; align-items: center; gap: 20px;">
+                
+                <a href="index.html" class="back-link"> 
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="badge">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section-padding product-page">
+        <div class="container">
+            <div class="product-wrapper">
+                
+                <div class="product-gallery">
+                    <div class="main-image-box">
+                        <img id="mainImg" src="" alt="Product Image">
+                    </div>
+                    <div class="thumbnail-list" id="thumbnailContainer">
+                        </div>
+                </div>
+
+                <div class="product-info-col">
+                    <span class="category" id="pCategory">Category</span>
+                    <h1 class="product-title" id="pTitle">Loading...</h1>
+                    <div class="price large" id="pPrice">₹0.00</div>
+                    
+                    <p class="description" id="pDesc">
+                        Loading description...
+                    </p>
+
+                    <div class="features-list">
+                        <li><i class="fas fa-check"></i> Premium Matte Finish</li>
+                        <li><i class="fas fa-check"></i> Fade-Resistant Print</li>
+                        <li><i class="fas fa-check"></i> Secure Packaging</li>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="addToCartBtn" class="btn btn-primary full-width">Add to Cart</button>
+                        
+                        <a href="https://wa.me/60198613671" target="_blank" class="btn btn-whatsapp full-width">
+                            <i class="fab fa-whatsapp"></i> Buy on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                
+                <div class="footer-col brand-col">
+                    <a href="index.html" class="logo white">Art<span>Vista</span></a>
+                    <p>Premium wall art and frames designed to immortalize your passion. Handcrafted for the modern enthusiast.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Policies</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="legal/shipping-policy.html">Shipping Policy</a></li>
+                        
+                        <li><a href="legal/refund-policy.html">Refund Policy</a></li>
+                        
+                        <li><a href="legal/privacy-policy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>We are here to help</h4>
+                    <div class="contact-links">
+                        <a href="https://instagram.com/art._.vista_" target="_blank" class="contact-item">
+                            <i class="fab fa-instagram"></i>
+                            <span>Follow on Instagram</span>
+                        </a>
+
+                        <a href="https://wa.me/60198613671" target="_blank" class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Chat on WhatsApp</span>
+                        </a>
+                        
+                        <a href="mailto:support@artvista.me" class="contact-item">
+                            <i class="far fa-envelope"></i>
+                            <span>jadhaventerprises2000@gmail.com</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="copyright">
+                &copy; 2025 ArtVista. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="secrets.js"></script>
+    <script src="js/product.js"></script>
+</body>
+</html>

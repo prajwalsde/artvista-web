@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | ArtVista</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <style>
+        /* Specific Styles for Checkout Page */
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .form-section, .summary-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .item-details h4 { font-size: 1rem; margin-bottom: 5px; }
+        .item-price { color: #D65A31; font-weight: 600; }
+        .remove-btn { color: red; font-size: 0.8rem; cursor: pointer; margin-top: 5px; display: inline-block;}
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        @media(max-width: 768px) {
+            .checkout-container { grid-template-columns: 1fr; }
+            .checkout-container { margin-top: 80px;} /* Fix navbar overlap */
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar" class="scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Art<span>Vista</span></a>
+            <a href="index.html" style="font-weight: 600;"> <i class="fas fa-arrow-left"></i> Continue Shopping</a>
+        </div>
+    </nav>
+
+    <section class="section-padding" style="min-height: 80vh;">
+        <div class="container checkout-container">
+            
+            <div class="form-section">
+                <h2 class="title" style="font-size: 1.8rem;">Delivery Details</h2>
+                <form id="checkoutForm" onsubmit="event.preventDefault()">
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" id="name" required placeholder="John Doe" autocomplete="name">
+                    </div>
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" id="email" required placeholder="john@example.com" autocomplete="email">
+                    </div>
+                    <div class="input-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="phone" required placeholder="9999999999" autocomplete="tel">
+                    </div>
+                    <div class="input-group">
+                        <label>Shipping Address</label>
+                        <textarea id="address" rows="3" required placeholder="Flat No, Building, Street..." autocomplete="street-address"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>Pincode</label>
+                        <input type="text" id="pincode" required placeholder="400001" autocomplete="postal-code">
+                    </div>
+                </form>
+            </div>
+
+            <div class="summary-section">
+                <h2 class="title" style="font-size: 1.8rem;">Order Summary</h2>
+                
+                <div id="cartItemsContainer">
+                    <p>Your cart is empty.</p>
+                </div>
+
+                <div class="total-row">
+                    <span>Total Amount</span>
+                    <span id="finalTotal">₹0.00</span>
+                </div>
+
+                <button type="button" id="payBtn" class="btn btn-primary full-width" style="margin-top: 20px;">
+                    Pay Now <i class="fas fa-lock"></i>
+                </button>
+                <p style="font-size: 0.8rem; color: #777; margin-top: 10px; text-align: center;">
+                    Secured by Razorpay. We will email you the order confirmation.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script src="secrets.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>

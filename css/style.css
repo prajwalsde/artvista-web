@@ -1,0 +1,715 @@
+/* -------------------------------------------
+   1. VARIABLES & RESET
+------------------------------------------- */
+:root {
+    /* Color Palette */
+    --primary-color: #0B132B;      /* Midnight Blue */
+    --accent-color: #D65A31;       /* Burnt Sienna/Clay */
+    --bg-light: #F9F9F9;           /* Off-White Background */
+    --bg-white: #FFFFFF;           /* Pure White */
+    --text-dark: #1A1A1A;
+    --text-gray: #666666;
+    
+    /* Typography */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Effects */
+    --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
+    --shadow-lg: 0 15px 30px rgba(0,0,0,0.08);
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --transition: all 0.3s ease;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* -------------------------------------------
+   2. REUSABLE COMPONENTS
+------------------------------------------- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Typography Utilities */
+.title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.sub-title {
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    letter-spacing: 0.5px;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: white;
+}
+.btn-primary:hover { background-color: #bf4a24; transform: translateY(-2px); }
+
+.btn-outline-white {
+    border-color: white;
+    color: white;
+}
+.btn-outline-white:hover { background-color: white; color: var(--primary-color); }
+
+.btn-outline-dark {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+.btn-outline-dark:hover { background-color: var(--primary-color); color: white; }
+
+.section-padding { padding: 80px 0; }
+.bg-white { background-color: var(--bg-white); }
+.full-width { width: 100%; }
+
+/* -------------------------------------------
+   3. NAVIGATION
+------------------------------------------- */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px 0;
+    transition: var(--transition);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+nav.scrolled {
+    padding: 15px 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+.logo span, .logo.white span { color: var(--accent-color); }
+.logo.white { color: white; }
+
+.nav-links { display: flex; gap: 30px; }
+.nav-links a { font-weight: 500; font-size: 0.95rem; }
+.nav-links a:hover { color: var(--accent-color); }
+
+.nav-icons { display: flex; gap: 20px; color: var(--primary-color); align-items: center; font-size: 1.2rem; cursor: pointer; }
+
+.cart-icon { position: relative; }
+.badge {
+    position: absolute;
+    top: -8px; right: -8px;
+    background: var(--accent-color);
+    color: white;
+    font-size: 0.6rem;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+}
+
+.hamburger { display: none; }
+.mobile-menu {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    background: white;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    transform: translateX(100%);
+    transition: transform 0.4s ease-in-out;
+}
+.mobile-menu.active { transform: translateX(0); }
+.mobile-menu a { font-size: 1.5rem; font-weight: 600; font-family: var(--font-heading); }
+.close-menu { position: absolute; top: 30px; right: 30px; font-size: 2rem; cursor: pointer; }
+
+/* -------------------------------------------
+   4. HERO SECTION
+------------------------------------------- */
+.hero {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    /* Use local image in assets/images/hero.jpg or this placeholder */
+    background: url('https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=2070&auto=format&fit=crop'); 
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+}
+
+.hero-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(11, 19, 43, 0.7), rgba(11, 19, 43, 0.4));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    line-height: 1.1;
+}
+
+.hero p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; font-weight: 300; }
+.hero-btns { display: flex; gap: 15px; justify-content: center; }
+
+/* Animation simple fade in */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeInUp 1s ease forwards; }
+
+/* -------------------------------------------
+   5. FEATURES BAR (Floating)
+------------------------------------------- */
+.relative-wrapper { position: relative; height: 0; }
+
+.features-bar {
+    background: var(--bg-white);
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    top: -50px; /* Floating effect */
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 10;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.feature-item i { font-size: 2rem; color: var(--accent-color); }
+.feature-item h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 2px; }
+.feature-item p { font-size: 0.85rem; color: var(--text-gray); }
+
+/* -------------------------------------------
+   6. PRODUCTS / GALLERY
+------------------------------------------- */
+.section-header { text-align: center; margin-bottom: 50px; }
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.product-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+
+.card-image {
+    height: 320px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .card-image img { transform: scale(1.05); }
+
+.tag {
+    position: absolute; top: 15px; left: 15px;
+    background: var(--accent-color); color: white;
+    padding: 5px 12px; font-size: 0.75rem; font-weight: 600;
+    border-radius: 4px;
+}
+
+.add-to-cart-btn {
+    position: absolute;
+    bottom: -50px; left: 50%;
+    transform: translateX(-50%);
+    background: white; color: var(--primary-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: var(--transition);
+}
+
+.product-card:hover .add-to-cart-btn { bottom: 20px; }
+
+.card-details { padding: 20px; text-align: center; }
+.category { color: var(--accent-color); font-size: 0.75rem; text-transform: uppercase; font-weight: 700; }
+.card-details h3 { font-size: 1.1rem; margin: 5px 0 10px; font-weight: 600; }
+.price { font-weight: 600; color: var(--text-gray); font-size: 1.1rem; }
+
+.center-btn-wrapper { text-align: center; }
+
+/* -------------------------------------------
+   7. ABOUT & TESTIMONIALS
+------------------------------------------- */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+.about-image-stack img { border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+
+.about-list li { margin-bottom: 10px; font-weight: 500; }
+.about-list i { color: var(--accent-color); margin-right: 10px; }
+
+.testimonial-section {
+    background: var(--primary-color);
+    color: white;
+    text-align: center;
+}
+.testimonial-box { max-width: 700px; margin: 0 auto; }
+.stars { color: #FFD700; margin-bottom: 20px; }
+.quote { font-family: var(--font-heading); font-size: 1.5rem; font-style: italic; font-weight: 400; margin-bottom: 20px; }
+
+/* -------------------------------------------
+   8. CONTACT & FOOTER
+------------------------------------------- */
+.contact-container { max-width: 600px; text-align: center; }
+.contact-header { margin-bottom: 30px; }
+
+.input-group { margin-bottom: 15px; }
+.input-group input, .input-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    transition: var(--transition);
+}
+.input-group input:focus, .input-group textarea:focus {
+    outline: none; border-color: var(--primary-color);
+}
+
+/* --- NEW PREMIUM FOOTER STYLES --- */
+footer {
+    background-color: #050914; /* Deepest Dark Blue */
+    color: #e0e0e0;
+    padding: 80px 0 30px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.2fr; /* Balanced 3-Column Layout */
+    gap: 60px;
+    margin-bottom: 60px;
+}
+
+/* Brand Column */
+.brand-col p {
+    margin-top: 20px;
+    font-size: 0.95rem;
+    color: #a0a0a0;
+    line-height: 1.8;
+    max-width: 300px;
+}
+
+.logo.white { color: #fff; }
+
+/* Headings */
+.footer-col h4 {
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Policy Links */
+.footer-links-list li {
+    margin-bottom: 15px;
+}
+
+.footer-links-list a {
+    color: #a0a0a0;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.footer-links-list a:hover {
+    color: var(--accent-color); /* Uses your orange accent */
+    transform: translateX(5px);
+}
+
+/* Contact & Support Items */
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #a0a0a0;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    padding: 8px 0;
+}
+
+.contact-item i {
+    font-size: 1.2rem;
+    width: 20px; /* Aligns icons neatly */
+    text-align: center;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+/* Hover Effects */
+.contact-item:hover {
+    color: white;
+}
+
+.contact-item:hover i.fa-whatsapp { color: #25D366; }
+.contact-item:hover i.fa-envelope { color: var(--accent-color); }
+.contact-item:hover i.fa-instagram { color: #E1306C; }
+
+.social-highlight {
+    margin-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+}
+
+/* Copyright Bar */
+.copyright {
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 30px;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+/* Responsive Mobile Footer */
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr; /* Stack columns */
+        gap: 40px;
+        text-align: center;
+    }
+
+    .brand-col p {
+        margin: 20px auto 0; /* Center brand text */
+    }
+
+    .contact-item {
+        justify-content: center; /* Center contact icons */
+    }
+}
+
+/* -------------------------------------------
+   9. RESPONSIVE DESIGN (Mobile)
+------------------------------------------- */
+@media (max-width: 992px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: block; }
+    
+    .hero h1 { font-size: 2.5rem; }
+    .features-bar { flex-direction: column; align-items: flex-start; margin-top: 20px; }
+    .about-grid { grid-template-columns: 1fr; }
+    
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-btns { flex-direction: column; width: 80%; margin: 0 auto; }
+}
+
+/* --- PRODUCT DETAILS PAGE --- */
+.product-page {
+    margin-top: 60px; /* Offset fixed navbar */
+    min-height: 80vh;
+}
+
+.product-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+/* Left: Images */
+.main-image-box {
+    width: 100%;
+    height: 400px;
+    background: #f1f1f1;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+}
+
+.main-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures the whole frame is visible */
+}
+
+.thumbnail-list {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    opacity: 0.7;
+    transition: all 0.2s;
+}
+
+.thumbnail:hover, .thumbnail.active {
+    opacity: 1;
+    border-color: var(--accent-color);
+}
+
+/* Right: Info */
+.product-info-col {
+    padding: 20px 0;
+}
+
+.product-title {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.price.large {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.description {
+    color: var(--text-gray);
+    margin-bottom: 30px;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.features-list {
+    margin-bottom: 30px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+}
+
+.features-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .product-wrapper {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .main-image-box {
+        height: 300px;
+    }
+    
+    .product-title {
+        font-size: 1.8rem;
+    }
+}
+
+/* --- WhatsApp Button Styling --- */
+.btn-whatsapp {
+    background-color: #25D366;
+    color: white;
+    border: 1px solid #25D366;
+    transition: all 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+    background-color: #128C7E; /* Darker green on hover */
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+}
+
+/* --- POLICY PAGES TYPOGRAPHY --- */
+.policy-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.policy-content h3 {
+    color: #0B132B; /* Dark Blue */
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.policy-content p, .policy-content li {
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.8;
+}
+
+.policy-content ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+/* --- FIX: Back to Home Link --- */
+.back-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background-color: #f1f1f1;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    background-color: #e0e0e0;
+    color: #0B132B;
+    transform: translateX(-3px);
+}
+
+/* --- FIX: WhatsApp Button --- */
+.btn-whatsapp {
+    background-color: #25D366;
+    color: white !important; /* Force white text */
+    border: 1px solid #25D366;
+    display: flex; /* Flexbox to center items */
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(37, 211, 102, 0.2);
+}
+
+.btn-whatsapp:hover {
+    background-color: #128C7E;
+    border-color: #128C7E;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp i {
+    font-size: 1.2rem; /* Make icon slightly larger */
+}
+
+/* --- SPACING FIX: Features Bar vs Collection --- */
+
+/* This pushes the "Trending Artworks" section down */
+.relative-wrapper {
+    margin-bottom: 120px; 
+}
+
+/* Mobile Adjustment: Since the bar stacks vertically on mobile, we need different spacing */
+@media (max-width: 768px) {
+    .relative-wrapper {
+        height: auto; /* Let it take up real space on mobile */
+        margin-bottom: 60px;
+    }
+    
+    .features-bar {
+        position: relative;
+        top: -30px; /* Less overlap on mobile */
+    }
+}
+
+/* Find this class in your CSS and update the padding-top value */
+.policy-page-padding {
+    padding-top: 160px; /* Changed from 120px to 160px to fix the cut-off title */
+    padding-bottom: 80px;
+    min-height: 80vh;
+    background-color: #f4f4f4;
+}
